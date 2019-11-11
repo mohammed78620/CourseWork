@@ -3,6 +3,9 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include<string>
+#include <sstream>
+#include <fstream>
 void election::add_vote(const vote &v) {
 	vote vo = v;
 	elec.push_back(vo);
@@ -45,5 +48,40 @@ std::vector<std::pair<candidate, int>> election::ranked_candidates() const {
 		std::cout << " Candidate: " << p[i].first<<" " << " FirstPreferenceCount: " << p[i].second;
 	}
 	return p;
+}
+election read_votes(std::istream& in) {
+	election elec;
+	vote vo();
+	std::string line;
+	while (std::getline(in,line)) {
+		std::stringstream s(line);
+		std::cout << s.str();		
+	}
+	
+	return elec;
+}
+void main1() {
+	election elec;
+	std::vector<candidate> vec;
+	std::fstream in("Text.txt");
+	std::string line;
+	std::stringstream s(line);
+	while (std::getline(in, line)) {
+		while (s >> line) {
+			candidate line;
+			vec.push_back(line);
+		}
+		vote vo(vec);
+		elec.add_vote(vo);
+		vec.clear();
+	}
+	vote v = *elec.it;
+	v.preference.at(0);
+	
+	//for (; it != elec.elec.end();++it) {
+	//	vote v = *it;
+	//	v.first_preference();
+	//}
+	
 }
 

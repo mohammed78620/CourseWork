@@ -27,6 +27,9 @@
     <ClInclude Include="Election.h" />
     <ClInclude Include="Vote.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Text.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{5AF36071-F12B-464E-B172-285F170F0F71}</ProjectGuid>

@@ -2,7 +2,7 @@
 #include "Vote.h"
 #include <iostream>
 #include <vector>
-
+#include<istream>
 int main() {
 	std::vector<candidate> vote1 = { 3,2,4,1 };
 	std::vector<candidate> vote2 = { 2,1,3,4 };
@@ -17,9 +17,9 @@ int main() {
 	elec.add_vote(v2);
 	elec.add_vote(v3);
 	elec.add_vote(v4);
-	elec.ranked_candidates();
-
-	
+	//elec.ranked_candidates();
+	/*read_votes(std::cin);*/
+	main1();
 
 
 }
