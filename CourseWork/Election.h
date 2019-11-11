@@ -7,14 +7,10 @@ class election {
 private:
 public:
 	std::vector<vote> elec;
-	std::vector<vote>::const_iterator it = elec.begin();
 	void add_vote(const vote& v);
 	int vote_count() const;
 	void eliminate(candidate c);
 	std::vector<std::pair<candidate, int>> ranked_candidates()const;
-	
-    
-    
 };
 election read_votes(std::istream& in);
 void main1();

@@ -19,10 +19,20 @@ int election::vote_count()const {
 }
 void election::eliminate(candidate c) {
 	std::vector<vote>::iterator it = elec.begin();
-	vote v = *elec.begin();
+	int i = 0;
 	for (; it != elec.end(); ++it) {
-		v = *it;
+		vote v(*it);
 		v.discard(c);
+		if (v.preference.empty()) {
+			it = elec.erase(it);
+
+		}
+		else{
+			elec.at(i) = v;
+			
+		}
+		
+		i++;
 	}
 
 }
@@ -44,9 +54,7 @@ std::vector<std::pair<candidate, int>> election::ranked_candidates() const {
 			return p1.second > p2.second;
 			});
 	}
-	for (int i = 0; i < p.size(); i++) {
-		std::cout << " Candidate: " << p[i].first<<" " << " FirstPreferenceCount: " << p[i].second;
-	}
+	
 	return p;
 }
 election read_votes(std::istream& in) {
@@ -62,26 +70,51 @@ election read_votes(std::istream& in) {
 }
 void main1() {
 	election elec;
+	candidate x;
 	std::vector<candidate> vec;
+	std::vector<vote>::iterator it;
+	
 	std::fstream in("Text.txt");
 	std::string line;
-	std::stringstream s(line);
+	
 	while (std::getline(in, line)) {
-		while (s >> line) {
-			candidate line;
-			vec.push_back(line);
+		std::stringstream s(line);
+		while (s >> x) {
+			
+			vec.push_back(x);
 		}
 		vote vo(vec);
 		elec.add_vote(vo);
 		vec.clear();
 	}
-	vote v = *elec.it;
-	v.preference.at(0);
 	
-	//for (; it != elec.elec.end();++it) {
-	//	vote v = *it;
-	//	v.first_preference();
-	//}
+	
+	
+	/*for (it = elec.elec.begin(); it != elec.elec.end();++it) {
+		elec.eliminate(3);
+		elec.eliminate(2);
+		
+		vote v(*it);
+		
+		std::cout << v.first_preference();
+		
+	}
+	elec.ranked_candidates();*/
+	std::vector<std::pair<candidate, int>> vec_pairs = elec.ranked_candidates();
+	std::vector<std::pair<candidate, int>>::iterator it1 = vec_pairs.end()-1;
+	int i = 0;
+	while (vec_pairs[0].second<elec.elec.size()/2) {
+		vec_pairs = elec.ranked_candidates();
+		std::cout<<"candidate: " << vec_pairs[i].first << " " << vec_pairs[i].second<<"\n";
+        vec_pairs.pop_back();
+		elec.eliminate(vec_pairs.back().first);
+	}
+	if (vec_pairs[0].second > elec.elec.size() / 2) {
+		std::cout << "candidate has won by majority vote: " << vec_pairs[0].first;
+	}
+	std::cout << "candidate has won by majority vote: " << vec_pairs[0].first;
+	
+
 	
 }
 

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include<istream>
+#include <sstream>
+#include <fstream>
 int main() {
 	std::vector<candidate> vote1 = { 3,2,4,1 };
 	std::vector<candidate> vote2 = { 2,1,3,4 };
@@ -20,6 +22,33 @@ int main() {
 	//elec.ranked_candidates();
 	/*read_votes(std::cin);*/
 	main1();
+
+
+
+
+
+
+
+	//std::fstream in("Text.txt");
+	//std::string line;
+	//std::vector<int> v;
+	//std::vector<int>::iterator it;
+	//int x=0;
+	//while (std::getline(in, line)) {
+	//	std::stringstream ss(line);
+	//	while (ss>>x){
+	//		/*std::cout << x;*/
+	//		v.push_back(x);
+	//	}
+	//}
+	//for (it = v.begin(); it != v.end(); ++it) {
+	//	std::cout << *it;
+	//}
+	//for (int i = 0; i < v.size();i++) {
+	//	std::cout<<v.at(i);
+	//}
+	
+	
 
 
 }
