@@ -90,29 +90,56 @@ void main1() {
 	
 	
 	
-	/*for (it = elec.elec.begin(); it != elec.elec.end();++it) {
-		elec.eliminate(3);
-		elec.eliminate(2);
+	//std::vector<std::pair<candidate, int>> vec_pairs;
+	//vec_pairs = elec.ranked_candidates();
+	//std::cout << "candidate: " << vec_pairs[0].first << " " << vec_pairs[0].second << "\n";
+	//elec.eliminate(3);
+	//vec_pairs = elec.ranked_candidates();
+	//std::cout << "candidate: " << vec_pairs[0].first << " " << vec_pairs[0].second << "\n";
+	//elec.eliminate(2);
+	//vec_pairs = elec.ranked_candidates();
+	//std::cout << "candidate: " << vec_pairs[0].first << " " << vec_pairs[0].second << "\n";
+	//if (vec_pairs[0].second > elec.elec.size() / 2) {
+	//	std::cout << "candidate is selected through majority vote: " << vec_pairs[0].first;
+	//}
+
+
+	/*vote v(*it);*/
 		
-		vote v(*it);
+	/*std::cout << v.first_preference();*/
 		
-		std::cout << v.first_preference();
-		
-	}
-	elec.ranked_candidates();*/
+	
+	
+
+
 	std::vector<std::pair<candidate, int>> vec_pairs = elec.ranked_candidates();
-	std::vector<std::pair<candidate, int>>::iterator it1 = vec_pairs.end()-1;
-	int i = 0;
-	while (vec_pairs[0].second<elec.elec.size()/2) {
+	std::vector<std::pair<candidate, int>>::iterator it1 = vec_pairs.begin();
+	
+	int round = 1;
+	while (vec_pairs[0].second<=elec.elec.size()/2) {
 		vec_pairs = elec.ranked_candidates();
-		std::cout<<"candidate: " << vec_pairs[i].first << " " << vec_pairs[i].second<<"\n";
-        vec_pairs.pop_back();
+		std::cout << "Round " << round << ": " << elec.elec.size() << " votes" << "\n"
+			<< "First preferences:"<<"\n";
+		for (int i = 0; i < vec_pairs.size(); i++) {
+			
+			std::cout<<"  Candidate " << vec_pairs[i].first << ": " 
+				<< vec_pairs[i].second<<"\n";
+		}
+		if (vec_pairs[0].second > elec.elec.size() / 2) {
+		std::cout << "Candidate  " << vec_pairs[0].first<<" is selected.";
+		return;
+		
+		}
+		std::cout << "Candidate " << vec_pairs.back().first << " is eliminated."<<"\n\n\n";
+
 		elec.eliminate(vec_pairs.back().first);
+		
+		
+
+		round++;
 	}
-	if (vec_pairs[0].second > elec.elec.size() / 2) {
-		std::cout << "candidate has won by majority vote: " << vec_pairs[0].first;
-	}
-	std::cout << "candidate has won by majority vote: " << vec_pairs[0].first;
+	
+	/*std::cout << "candidate has won by majority vote: " << vec_pairs[0].first;*/
 	
 
 	
