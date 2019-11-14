@@ -6,49 +6,31 @@
 #include <sstream>
 #include <fstream>
 int main() {
-	std::vector<candidate> vote1 = { 3,2,4,1 };
-	std::vector<candidate> vote2 = { 2,1,3,4 };
-	std::vector<candidate> vote3 = { 3,2,4,1 };
-	std::vector<candidate> vote4 = { 3,2,4,1 };
-	vote v1(vote1);
-	vote v2(vote2);
-	vote v3(vote3);
-	vote v4(vote4);
 	election elec;
-	elec.add_vote(v1);
-	elec.add_vote(v2);
-	elec.add_vote(v3);
-	elec.add_vote(v4);
-	//elec.ranked_candidates();
-	/*read_votes(std::cin);*/
-	main1();
+	candidate x;
+	std::fstream in("Text.txt");
+	std::vector<candidate> vec;
+	std::vector<vote>::iterator it;
+	elec = read_votes(in);
+	std::vector<std::pair<candidate, int>> vec_pairs = elec.ranked_candidates();
+	std::vector<std::pair<candidate, int>>::iterator it1 = vec_pairs.begin();
 
+	int round = 1;
+	while (vec_pairs[0].second <= elec.elec.size() / 2) {
+		vec_pairs = elec.ranked_candidates();
+		std::cout << "Round " << round << ": " << elec.vote_count() << " votes" << "\n"
+			<< "First preferences:" << "\n";
+		for (int i = 0; i < vec_pairs.size(); i++) {
 
-
-
-
-
-
-	//std::fstream in("Text.txt");
-	//std::string line;
-	//std::vector<int> v;
-	//std::vector<int>::iterator it;
-	//int x=0;
-	//while (std::getline(in, line)) {
-	//	std::stringstream ss(line);
-	//	while (ss>>x){
-	//		/*std::cout << x;*/
-	//		v.push_back(x);
-	//	}
-	//}
-	//for (it = v.begin(); it != v.end(); ++it) {
-	//	std::cout << *it;
-	//}
-	//for (int i = 0; i < v.size();i++) {
-	//	std::cout<<v.at(i);
-	//}
-	
-	
-
-
+			std::cout << "  Candidate " << vec_pairs[i].first << ": "
+				<< vec_pairs[i].second << "\n";
+		}
+		if (vec_pairs[0].second > elec.elec.size() / 2) {
+			std::cout << "Candidate  " << vec_pairs[0].first << " is selected.";
+			return 0;
+		}
+		std::cout << "Candidate " << vec_pairs.back().first << " is eliminated." << "\n\n\n";
+		elec.eliminate(vec_pairs.back().first);
+		round++;
+	}
 }
