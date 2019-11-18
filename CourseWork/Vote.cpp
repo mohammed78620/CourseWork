@@ -13,6 +13,7 @@ candidate vote::first_preference() const {
 	return preference[0];
 }
 void vote::discard(candidate c) {
-	preference.erase(std::remove(preference.begin(), preference.end(), c), preference.end());
-
+	if (!spent()) {
+		preference.erase(std::remove(preference.begin(), preference.end(), c), preference.end());
+	}
 }
