@@ -25,10 +25,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Election.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Vote.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt" />
+    <Text Include="Text1.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

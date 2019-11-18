@@ -8,18 +8,21 @@
 int main() {
 	election elec;
 	candidate x;
-	std::fstream in("Text.txt");
+	std::fstream in("Text1.txt");
 	std::vector<candidate> vec;
 	std::vector<vote>::iterator it;
 	elec = read_votes(in);
+
 	std::vector<std::pair<candidate, int>> vec_pairs = elec.ranked_candidates();
 	std::vector<std::pair<candidate, int>>::iterator it1 = vec_pairs.begin();
+	std::pair<candidate, int> pair = *it1;
+	
 
 	int round = 1;
 	while (vec_pairs[0].second <= elec.elec.size() / 2) {
 		vec_pairs = elec.ranked_candidates();
 		std::cout << "Round " << round << ": " << elec.vote_count() << " votes" << "\n"
-			<< "First preferences:" << "\n";
+			<< "First preferences:" << "\n";		
 		for (int i = 0; i < vec_pairs.size(); i++) {
 
 			std::cout << "  Candidate " << vec_pairs[i].first << ": "
