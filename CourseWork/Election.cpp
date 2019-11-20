@@ -13,21 +13,17 @@ void election::add_vote(const vote &v) {
 int election::vote_count()const {
 	return elec.size();
 }
+
 void election::eliminate(candidate c) {
 	std::vector<vote>::iterator it = elec.begin();
-
-
-
-	for (; it != elec.end(); ++it){
-		vote v = *it;
-		v.discard(c);
-		if (v.spent()) {
-			it = elec.erase(it);
-		}
-		else{
-			*it = v;
-		}
+	it = elec.begin();
+	while (it!=elec.end()){
+		it->discard(c);
+		++it;
 	}
+	it = std::remove_if(elec.begin(), elec.end(), [](vote v) {
+		return v.spent(); });
+	elec.erase(it, elec.end());
 }
 std::vector<std::pair<candidate, int>> election::ranked_candidates() const {
 	std::vector<vote>::const_iterator it = elec.begin();
@@ -39,7 +35,6 @@ std::vector<std::pair<candidate, int>> election::ranked_candidates() const {
 		v = *it;
 		++m[v.first_preference()];
 	}
-	
 	for (it2 = m.begin(); it2 != m.end();++it2) {
 		p.push_back(*it2);
 		
@@ -64,7 +59,6 @@ election read_votes(std::istream& in) {
 		elec.add_vote(vo);
 		vec.clear();
 	}
-	
 	return elec;
 }
 

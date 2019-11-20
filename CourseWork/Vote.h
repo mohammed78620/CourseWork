@@ -8,7 +8,6 @@ public:
 	bool spent() const;
 	candidate first_preference() const;
 	void discard(candidate c);
-public:
 	vote(const std::vector<candidate>& prefs);
 };
 #endif // !VOTE_H
