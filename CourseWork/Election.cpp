@@ -7,16 +7,15 @@
 #include <sstream>
 #include <fstream>
 void election::add_vote(const vote &v) {
-	vote vo = v;
-	elec.push_back(vo);
+	elec.push_back(v);
 }
+
 int election::vote_count()const {
 	return elec.size();
 }
 
 void election::eliminate(candidate c) {
 	std::vector<vote>::iterator it = elec.begin();
-	it = elec.begin();
 	while (it!=elec.end()){
 		it->discard(c);
 		++it;
@@ -25,6 +24,7 @@ void election::eliminate(candidate c) {
 		return v.spent(); });
 	elec.erase(it, elec.end());
 }
+
 std::vector<std::pair<candidate, int>> election::ranked_candidates() const {
 	std::vector<vote>::const_iterator it = elec.begin();
 	std::vector<std::pair<candidate, int>> p;
@@ -44,6 +44,7 @@ std::vector<std::pair<candidate, int>> election::ranked_candidates() const {
 			});
 	return p;
 }
+
 election read_votes(std::istream& in) {
 	election elec;
 	candidate x;
@@ -52,7 +53,6 @@ election read_votes(std::istream& in) {
 	while (std::getline(in, line)) {
 		std::stringstream s(line);
 		while (s >> x) {
-
 			vec.push_back(x);
 		}
 		vote vo(vec);
